@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="ttt.css">
+    <link rel="stylesheet" href="https://boxicons.com/?query=user">
+</head>
+<body>
+    <form id="webform">
+        <div class="container">
+            <div class="box2">
+                <div class="register">
+                    <p>R E G I S T E R</p>
+                </div>
+                <div class="firstname">
+                    <h>First name*</h><br>
+                    <input type="text" id="firstname" placeholder="Enter your first name here" required>
+                </div><br>
+
+                <div class="lastname">
+                    <h>Last name*</h><br>
+                    <input type="text" id="lastname" placeholder="Enter your last name here" required>
+                </div><br>
+
+                <div class="emailid">
+                    <h>Email address*</h><br>
+                    <input type="email" id="emailid" placeholder="Enter your email address here" required>
+                </div><br>
+
+                <div class="dob">
+                    <h>Date of Birth*</h><br>
+                    <input type="date" id="dob" required>
+                </div><br>
+
+                <div class="password">
+                    <h>Password</h><br>
+                    <input type="password" id="password" placeholder="Enter your password here" required>
+                </div><br>
+
+                <div class="gender">
+                    <h>Gender*</h><br>
+                    <select id="gender" name="gender">
+                        <option value="">choose your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="others">Others</option>
+                    </select><br><br><br>
+
+                    <div class="submit">
+                        <button type="button" onclick="validateAndSubmit()">Submit</button>
+                    </div>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function validateAndSubmit() {
+    const firstName = document.getElementById("firstname").value;
+    const lastName = document.getElementById("lastname").value;
+    const emailId = document.getElementById("emailid").value;
+    const dob = document.getElementById("dob").value;
+    const password = document.getElementById("password").value;
+    const gender = document.getElementById("gender").value;
+
+    const namePattern = /^[A-Za-z]+$/; // Regex to allow only letters
+    const emailPattern = /^[a-zA-Z0-9._-]+@(gmail|yahoo)\.(com|in)$/;
+    const currentDate = new Date();
+    const selectedDate = new Date(dob);
+    const ageDifference = currentDate.getFullYear() - selectedDate.getFullYear();
+
+    if (!namePattern.test(firstName)) {
+        alert("First name should contain only letters");
+        return;
+    }
+
+    if (!namePattern.test(lastName)) {
+        alert("Last name should contain only letters");
+        return;
+    }
+
+    if (!emailPattern.test(emailId)) {
+        alert(" only (gmail and yahoo ids) & (.com and .in) valid in email address ");
+        return;
+    }
+
+    if (ageDifference < 16) {
+        alert("You must be at least 16 years old to register.");
+        return;
+    }
+    if (password.trim() === "") {
+        alert("Password is required.");
+        return;
+    }
+    if (!gender) {
+        alert("Please select your gender.");
+        return;
+    }
+
+    const newUserData = {
+        firstName,
+        lastName,
+        emailId,
+        dob,
+        password,
+        gender
+    };
+
+    const existingDataJSON = localStorage.getItem('allUserData');
+    let allUserData = existingDataJSON ? JSON.parse(existingDataJSON) : [];
+    allUserData.push(newUserData);
+    localStorage.setItem('allUserData', JSON.stringify(allUserData));
+
+    alert("Registration successful!");
+
+    // Optionally, you can redirect the user to a thank you page or perform any other actions.
+}
+
+        // function validateAndSubmit() {
+        //     const firstName = document.getElementById("firstname").value;
+        //     const lastName = document.getElementById("lastname").value;
+        //     const emailId = document.getElementById("emailid").value;
+        //     const dob = document.getElementById("dob").value;
+        //     const password = document.getElementById("password").value;
+        //     const gender = document.getElementById("gender").value;
+
+        //     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        //     const currentDate = new Date();
+        //     const selectedDate = new Date(dob);
+        //     const ageDifference = currentDate.getFullYear() - selectedDate.getFullYear();
+
+        //     if (!emailPattern.test(emailId)) {
+        //         alert("Please enter a valid email address");
+        //         return;
+        //     }
+
+        //     if (firstName.trim() === "") {
+        //         alert("Please enter your first name");
+        //         return;
+        //     }
+
+        //     if (lastName.trim() === "") {
+        //         alert("Please enter your last name");
+        //         return;
+        //     }
+
+        //     if (ageDifference < 16) {
+        //         alert("You must be at least 16 years old to register.");
+        //         return;
+        //     }
+
+        //     const newUserData = {
+        //         firstName,
+        //         lastName,
+        //         emailId,
+        //         dob,
+        //         password,
+        //         gender
+        //     };
+
+        //     const existingDataJSON = localStorage.getItem('allUserData');
+        //     let allUserData = existingDataJSON ? JSON.parse(existingDataJSON) : [];
+        //     allUserData.push(newUserData);
+        //     localStorage.setItem('allUserData', JSON.stringify(allUserData));
+
+        //     alert("Registration successful!");
+
+        //     // Optionally, you can redirect the user to a thank you page or perform any other actions.
+    
+    </script>
+</body>
+</html>
